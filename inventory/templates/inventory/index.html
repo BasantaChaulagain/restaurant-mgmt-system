@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>INVENTORY</title>
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'inventory/css/cssresets.css'%}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'inventory/css/inventory.css'%}"/>	
+	<script type="text/javascript" src="{% static 'inventory/js/jquery-3.1.1.min.js' %}"></script>
+</head>
+<body>
+<!-- List items for the navigation bar start here -->
+		<nav style="width: 100%;">
+			<ul class="topnav" id="myTopnav">
+			  <li><a href="{% url 'public:index' %}">Home</a></li>
+			  <li><a href="{% url 'inventory:index' %}">Inventory</a></li>
+			  <li><a href="{% url 'public:contact' %}">Contact</a></li>
+			  <li><a href="{% url 'public:manager' %}">Manager</a></li>
+			  <li><a href="{% url 'public:cook' %}">Cook</a></li>
+			  <li class="icon">
+			    <a href="javascript:void(0);" onclick="iconShow()">&#9776;</a>
+			  </li>
+			<li id = "search-bar">
+			  <form role="search" method="get" action="{% url 'public:index' %}">
+	                <input type="text" class="form-control" placeholder="search by food" autocomplete="on" name="q" value="{{ request.GET.q }}">
+	          </form>
+	          </li>			  
+			  <ul class="navbar-right">	
+			      <li id = "sign-up" class = "sign-up-button" ><a href="#">Sign Up</a></li>
+			      <li id = "log-in" class = "log-in-button" ><a href="#">Login</a></li>
+	    	  </ul>
+
+			</ul>
+		</nav>
+	<!-- List item for the navigation bar end here -->
+	<!-- code for the inventory section goes here -->
+	<div class="inventory">
+	<table>
+		<tr class="table-row">
+			<th>Stock</th>
+			<th>Time</th>
+			<th>Quantity</th>
+			<th>Rate</th>
+			<th>Price</th>
+		</tr>
+	
+		{% for stock in stocks %}
+		<tr class="table-row">
+			<td>{{ stock.title }}</td>
+			<td>{{ stock.date|date:'M d' }}</td>
+			<td>{{ stock.qtt }}</td>
+			<td>{{ stock.rate }}</td>
+			<td>{{ stock.price }}</td>
+		</tr>
+		{% endfor %}
+		<tr><td></td></tr>
+		<tr>
+			<td colspan=4 ><strong>Total</strong></td>
+			<td><strong>{{ total }}</strong></td>
+		</tr>
+		<tr><td></td></tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td><button id = "add-stock">Add Stock</button></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+
+	
+	<div class="quantity-form" style="display:none">
+		<form action="{% url 'inventory:index' %}" method="post">
+		    {% csrf_token %}
+		    {{ form.as_p }}
+		    <button id = "submit-detail">Submit</button>
+		    <!-- <input type="submit" value="Submit" /> -->
+		</form>
+	</div>
+	<!-- code for the inventory section ends here -->
+	
+	<script>
+		$(document).ready(function(){
+			$("#add-stock").click(function(){
+				$("body > *").not("body > .quantity-form").css("opacity","0.2");
+				$(".quantity-form").show(500);
+			});
+
+			$("#submit-detail").click(function(){
+				$(".quantity-form").hide(500);
+				$("body > *").not("body > .quantity-form").css("opacity","1");
+			});
+		});
+	</script>
+</body>
+</html>
+

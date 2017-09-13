@@ -1,0 +1,12 @@
+div.text{
+	height:15%;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	display: flex;
+	align-items: center; /*for horizontal centering*/
+	justify-content: center; /*for vertical centering*/
+	padding: 2% 2%;
+	border:1px solid white;
+} important for centering

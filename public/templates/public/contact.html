@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1"> 
+		<title>Contact</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'public/css/cssresets.css'%}"/>
+		<link rel="stylesheet" type="text/css" href="{% static 'public/css/contact.css'%}"/>
+		
+		<script type="text/javascript" src="{% static 'public/js/jquery-3.1.1.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'public/js/home.js' %}"></script>
+		<script type="text/javascript" src="{% static 'public/js/home-jquery.js' %}"></script>
+	</head>	
+	
+	<body>
+	<!-- List items for the navigation bar start here -->
+		<nav style="width: 100%;">
+			<ul class="topnav" id="myTopnav">
+			  <li><a href="{% url 'public:index' %}">Home</a></li>
+			  <li><a href="{% url 'inventory:index' %}">Inventory</a></li>
+			  <li><a href="{% url 'public:contact' %}">Contact</a></li>
+			  <li><a href="{% url 'public:manager' %}">Manager</a></li>
+			  <li><a href="{% url 'public:cook' %}">Cook</a></li>
+			  <li class="icon">
+			    <a href="javascript:void(0);" onclick="iconShow()">&#9776;</a>
+			  </li>
+			<li id = "search-bar">
+			  <form role="search" method="get" action="{% url 'public:index' %}">
+	                <input type="text" class="form-control" placeholder="search by food" autocomplete="on" name="q" value="{{ request.GET.q }}">
+	          </form>
+	          </li>			  
+			  <ul class="navbar-right">	
+			      <li id = "sign-up" class = "sign-up-button" ><a href="#">Sign Up</a></li>
+			      <li id = "log-in" class = "log-in-button" ><a href="#">Login</a></li>
+	    	  </ul>
+
+			</ul>
+		</nav>
+	<!-- List item for the navigation bar end here -->
+			
+		<form action="{% url 'public:contact' %}" method="post">
+	    {% csrf_token %}
+	    {{ form.as_p }}
+	    <input type="submit" value="Send" />
+		</form>
+
+	</body> 
+</html>

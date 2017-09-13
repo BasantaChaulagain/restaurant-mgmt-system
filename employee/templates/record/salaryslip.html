@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Salary Details{% endblock %}
+{% block content %}
+
+  <h2> Salary Sheet </h2>
+<ol type="1">
+    {% for l in salary_sheet %}
+    <li> {{l.salary_id.username}} - {{l.paid_this_month}} - {{l.salary_amount}} </li>
+    {% endfor %}
+  <li> {}</li>
+</ol>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'public/base.html' %}
+    {% block title %}{% endblock %}
+
+{% block body %}
+	<!-- menu begins here-->
+
+	<div class = "menu" >
+		<h1 style="padding-top: 5px; padding-bottom: 5px;"> MENU</h1>
+		
+		<form name="form" action="{% url 'public:order' %}" method="post">
+		{% csrf_token %}
+		{% for category in categories %}
+		<h2>{{ category }}</h2>
+			{% for food in foods %}
+				{% if food.category == category %}
+				<div class="food-item">
+					<div class="image">
+						{% if food.image %}
+	              		   <img src="{{ food.image.url }}" class="img-responsive">
+			            {% else %}
+			                 <h3>No image to display</h3>
+			            {% endif %}
+						<img src="..\..\static\public\images\item-selected.jpg" id="momo" style="display: none" />
+						<div class="container">
+							<input name="food" type="checkbox" id="food{{ forloop.counter }}" value="{{ food.id }} ">
+							<p>{{ food }} &emsp;&emsp;&emsp;<strong>Rs.{{ food.price }}</strong></p>
+						</div>
+					</div>
+				</div> 
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+	</div>
+	<!-- menu ends here -->
+	
+	
+	
+	<!-- table selection code starts here -->
+	<div class="for-table" id = "table-info">
+		<div class="table-info">
+			<p>Your table number:</p>
+			<input name="table" type="numbers" id="{{ table }}" value="{{ table }}"><br>
+		</div>
+		<div id="table-buttons">
+			<button id = "confirm-order" type="submit" value="submit">Confirm Order</button>
+			</form>
+			<button id = "change-order">Change Order</button>
+		</div>
+	</div>
+	<!-- table selection code ends here -->
+	
+	<button id = "submit" type="submit" > SUBMIT </button>
+	
+	
+		
+	<script>
+		$(document).ready(function(){
+			$("#submit").click(function(){
+				$("body > *").not("body > .for-table,#submit").css("z-index","-1");
+				$(".for-table").css("z-index","99");
+				$(".for-table").show(500).focus();
+			});
+
+			$("#change-order").click(function(){
+				$(".for-table").hide(500);
+				$("body > *").css("z-index","auto")
+			});
+			
+			$("#confirm-order").click(function(){
+				$(".for-table").hide(500);
+				$("body > *").css("z-index","auto")
+			});
+		});
+	</script>
+	
+{% endblock %}

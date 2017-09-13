@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Attendance{% endblock %}
+{% block content %}
+
+  <h2> Today's Attendance </h2>
+<ol type="1">
+    {% for l in list %}
+    <li> {{l.attendid.username}} - {{l.attend_date_time}} </li>
+    {% endfor %}
+  <li> {}</li>
+</ol>
+
+{% endblock %}

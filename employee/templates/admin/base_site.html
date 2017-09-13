@@ -1,0 +1,35 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | Holiday {% endblock %}
+
+{% block extrastyle %}
+<style>
+    #header{
+        background-color: #000000;
+    }
+
+   body.login{
+    background: url(' {% static "images/admin/base_site.jpg" %} ');
+    }
+
+    #content{
+        background: #d3e6c5;
+            }
+
+    #content-related{
+    background:#dcdcdc;
+    }
+
+    .module{
+    background: #f5f2f2;
+    }
+
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Holiday Restaurant cPanel</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

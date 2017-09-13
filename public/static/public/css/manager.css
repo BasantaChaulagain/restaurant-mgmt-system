@@ -1,0 +1,215 @@
+:root{
+	--color-black:black;
+	--color-red:red;
+}
+
+*{
+	box-sizing: border-box;
+}
+
+body{
+	width: 100%;
+	background-image: url("../images/background.jpg");
+}
+
+/*CODE FOR THE NAVIGATION BAR START HERE*/
+
+nav{
+    max-width: 100%;
+}
+/* Remove margins and padding from the list, and add a black background color */
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-image: url("../images/background.jpg");
+    border-bottom: 2px solid white;
+}
+
+
+/* Float the list items side by side */
+ul.topnav li {float: left;}
+
+ul.topnav ul.navbar-right {
+    float: right;
+}
+
+/* Style the links inside the list items */
+ul.topnav li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+ul.navbar-right li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+#search-bar input {
+    margin:12px 14px;
+    /*min-width: 25%;*/
+}
+
+/* Change background color of links on hover */
+ul.topnav li a:hover {background-color: #555;}
+
+/*Change the background color when the link is active*/
+ul.topnav li a:hover {color: blue;}
+
+/* Hide the list item that contains the link that should open and close the topnav on small screens */
+ul.topnav li.icon {display: none;}
+
+
+/*style for the header div start here*/
+div.headerdiv{
+	width: 100%;
+	padding-top: 10px;
+}
+
+#current,#todays{
+	width: 48%;
+	height:30px;
+	float:left;
+	padding:0% 5% 0% 5%;
+	margin-left: 1%;
+	margin-right: 1%;
+	margin-bottom: 2%;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	background-image: url("../images/background.jpg");
+	border: 2px solid var(--color-black);
+	border-radius: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#current:active, #todays:active{
+	transform: translateY(-4px);
+}
+/*style for the header div end here*/
+
+/*style for the table data starts here*/
+section.current-transaction{
+	width: 100%;
+}
+.current-transaction table{
+	width: 100%;
+}
+
+.table-row{
+	height: 40px;
+}
+
+.current-transaction table tr{
+	width: 100%;
+}
+
+.current-transaction table tr th{
+	text-transform: uppercase;
+}
+.current-transaction table td{
+	width: 25%;
+	text-align: center;
+	padding-top: 10px;
+}
+
+td button{
+	height: 25px;
+	border-radius:3px;
+}
+
+div.table-orders{
+	width: 25%;
+	height: 250px;
+	float: left;
+	margin:auto;
+	padding: 2px 2px 2px 2px;
+	background-color: var(--color-black);
+	border:1px solid red; 
+	box-sizing: border-box;
+}
+/*style for the table data ends here*/
+
+/*style for the todays section starts here*/
+
+.todays-transaction{
+	display:none;
+}
+
+.todays-transaction table{
+	width: 100%;
+}
+
+.todays-transaction table-row{
+	height: 40px;
+}
+
+.todays-transaction table tr{
+	width: 100%;
+}
+
+.todays-transaction table tr th{
+	text-transform: uppercase;
+}
+.todays-transaction table td{
+	width: 25%;
+	text-align: center;
+	padding-top: 10px;
+}
+
+td button{
+	height: 25px;
+	border-radius:3px;
+}
+/*style for the todays section ends here*/
+
+/*ADD ALL THE MEDIA QUERIES HERE*/
+
+/*When the screen is less than 680 pixels wide the body width is 100%*/
+@media screen and (max-width:680px) {
+  body{
+    max-width: 100%;
+    }
+  }
+/* When the screen is less than 680 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the topnav (li.icon) */
+@media screen and (max-width:680px) {
+  ul.topnav li:not(:first-child) {display: none;}
+  ul.topnav ul.navbar-right {display:none;}
+  ul.topnav li.icon {
+    float: right;
+    display: inline-block;
+  }
+}
+
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens */
+@media screen and (max-width:680px) {
+  ul.topnav.responsive {position: relative;}
+  ul.topnav.responsive li.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  ul.topnav.responsive li {
+    float: none;
+    display: inline;
+  }
+
+  ul.topnav.responsive ul.navbar-right {
+    float: none;
+    display: inline;
+  }
+  ul.topnav.responsive li a {
+    display: block;
+    text-align: left;
+  }
+}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Salary This Month{% endblock %}
+{% block content %}
+
+<h4>Salary -PAID this month</h4>
+{{message}}
+    <table>
+    {% for f in paidthismonth %}
+        <tr>{{f}}</tr><br>
+    {% endfor %}
+    </table>
+
+
+
+{% endblock %}

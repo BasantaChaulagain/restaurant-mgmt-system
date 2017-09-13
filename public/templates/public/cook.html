@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name = "viewport" content = "width = device-width, initial-scale = 1">
+	<title>cook</title>
+	
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'public/css/cssresets.css'%}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'public/css/cook.css'%}"/>
+	<script type="text/javascript" src="{% static 'public/js/jquery-3.1.1.min.js' %}"></script>
+
+	<script>
+		$(document).ready(function(){
+			$("#todays").click(function(){
+				$(".todays").show();
+				$(".current").css("display","none");
+				$("#todays").addClass("show-border");
+				$("#current").removeClass("show-border");
+			});
+
+			$("#current").click(function(){
+				$(".current").show();
+				$(".todays").css("display","none");
+				$("#current").addClass("show-border");
+				$("#todays").removeClass("show-border");
+			});			
+		});
+	</script>
+</head>
+
+<body>
+	<!-- List items for the navigation bar start here -->
+		<nav style="width: 100%;">
+			<ul class="topnav" id="myTopnav">
+			  <li><a href="{% url 'public:index' %}">Home</a></li>
+			  <li><a href="{% url 'inventory:index' %}">Inventory</a></li>
+			  <li><a href="{% url 'public:contact' %}">Contact</a></li>
+			  <li><a href="{% url 'public:manager' %}">Manager</a></li>
+			  <li><a href="{% url 'public:cook' %}">Cook</a></li>
+			  <li class="icon">
+			    <a href="javascript:void(0);" onclick="iconShow()">&#9776;</a>
+			  </li>
+			<li id = "search-bar">
+			  <form role="search" method="get" action="{% url 'public:index' %}">
+	                <input type="text" class="form-control" placeholder="search by food" autocomplete="on" name="q" value="{{ request.GET.q }}">
+	          </form>
+	          </li>			  
+			  <ul class="navbar-right">	
+			      <li id = "sign-up" class = "sign-up-button" ><a href="#">Sign Up</a></li>
+			      <li id = "log-in" class = "log-in-button" ><a href="#">Login</a></li>
+	    	  </ul>
+
+			</ul>
+		</nav>
+	<!-- List item for the navigation bar end here -->
+	
+	<div class="headerdiv">
+		<div id="current">
+			CURRENT
+		</div>
+
+		<div id="todays">
+			TODAYS
+		</div>
+	</div>
+	
+	<!-- code for the current section goes here -->
+	<div class="current">
+		{% if messages %}
+		{% for message in messages %}
+			<strong>{{ message }}</strong>
+		{% endfor %}
+		{% endif %}
+		<form  action="{% url 'public:serve' %}" method="post">
+		{% csrf_token %}
+		<table>
+			<tr class="table-row">
+				<th>Select</th>
+				<th>Time</th>
+				<th>Table</th>
+			</tr>
+			
+			{% for food in foods %}
+			<tr class="table-row">
+				<td><input type="checkbox" name="food" id="food{{ forloop.counter }}" value="{{ food.id }}"/>
+					<label for="food{{ forloop.counter }}">{{ food }}</label></td>
+				<td>{{ food.time }}</td>
+				<td>{{ food.table }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		<input type="submit" value="serve"/>
+		</form>
+	</div>
+	<!-- code for the current section ends here -->
+	
+	<!-- code for the todays section goes here -->
+	<div class="todays">
+		<table>
+			<tr class="table-row">
+				<th>Food</th>
+				<th>Time</th>
+				<th>Table</th>
+				<th>Price</th>
+			</tr>
+			
+			{% for served_food in served_foods %}
+				{% if served_food.served_today == True %}
+			<tr class="table-row">
+				<td>{{ served_food}}</td>
+				<td>{{ served_food.time }}</td>
+				<td>{{ served_food.table }}</td>
+				<td>{{ served_food.price }}</td>
+			</tr>
+			{% endif %}
+		{% endfor %}
+		</table>
+	</div>
+	<!-- code for the todays section ends here -->
+</body>
+</html>
